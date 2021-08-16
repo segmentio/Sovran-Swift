@@ -13,10 +13,11 @@ import Foundation
 var isUnitTesting: Bool = {
     var found = false
     for bundle in Bundle.allFrameworks {
-        if bundle.bundleURL.lastPathComponent == "XCTest.framework" {
-            found = true
-            break
-        }
+        print(bundle.bundleURL)
+//        if bundle.bundleURL.lastPathComponent == "XCTest.framework" {
+//            found = true
+//            break
+//        }
     }
     return found
 }()
