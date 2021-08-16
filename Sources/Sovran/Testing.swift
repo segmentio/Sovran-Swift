@@ -11,8 +11,8 @@ import Foundation
 
 /// Inquire as to whether we are within a Test environment.
 func isTesting() -> Bool {
-    print(ProcessInfo.processInfo.environment)
-    return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    return (NSClassFromString(@"XCTest") == nil)
+    //return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
 }
 
 /// Allows calls to throw to simply be given a String.
