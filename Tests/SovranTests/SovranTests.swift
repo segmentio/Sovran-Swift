@@ -68,6 +68,18 @@ class StateInterfaceTests: XCTestCase, Subscriber {
         XCTAssert(store.states.count == 2)
     }
     
+    func testDoubleProvide2() {
+        // register some state
+        store.provide(state: MessagesState())
+        store.provide(state: UserState())
+        
+        // this should do nothing since UserState has already been provided.
+        // in use, this will assert in DEBUG mode, outside of tests.
+        store.provide(state: UserState())
+        
+        XCTAssert(store.states.count == 2)
+    }
+    
     func testDispatch() {
         // register some state
         store.provide(state: MessagesState())

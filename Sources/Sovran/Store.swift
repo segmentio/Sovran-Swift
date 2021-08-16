@@ -89,7 +89,7 @@ public class Store/*: Codable*/ {
         if exists.count != 0 {
             #if DEBUG
             // do a hard error if in debug mode (but not in a test suite).
-            if !isTesting() {
+            if !isUnitTesting {
                 assertionFailure("\(state) has already been provided elsewhere and can't be provided twice!")
             }
             #endif

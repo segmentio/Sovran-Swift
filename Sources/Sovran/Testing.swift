@@ -9,12 +9,18 @@ import Foundation
 
 #if DEBUG
 
-/// Inquire as to whether we are within a Test environment.
-func isTesting() -> Bool {
-    print("XCTestCase present = \(NSClassFromString("XCTestCase") != nil)")
-    print("XCTest present = \(NSClassFromString("XCTest") != nil)")
-    return (NSClassFromString("XCTestCase") != nil)
-}
+/// Inquire as to whether we are within a Unit Testing environment.
+var isUnitTesting: Bool = {
+    #if os(Linux)
+    let found = Thread.main.threadDictionary.allKeys.contains { key in
+        return (key as? String)?.split(separator: ".").contains("xctest") == true
+    }
+    #else
+    let env = ProcessInfo.processInfo.environment
+    let found = (env["XCTestConfigurationFilePath"] != nil)
+    #endif
+    return found
+}()
 
 /// Allows calls to throw to simply be given a String.
 extension String: Error { }
