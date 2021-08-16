@@ -11,6 +11,8 @@ import Foundation
 
 /// Inquire as to whether we are within a Test environment.
 func isTesting() -> Bool {
+    print("XCTestCase present = \(NSClassFromString("XCTestCase") != nil)")
+    print("XCTest present = \(NSClassFromString("XCTest") != nil)")
     return (NSClassFromString("XCTestCase") != nil)
 }
 
