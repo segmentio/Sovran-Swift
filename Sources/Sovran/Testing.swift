@@ -12,7 +12,7 @@ import Foundation
 /// Inquire as to whether we are within a Unit Testing environment.
 var isUnitTesting: Bool = {
     var found = false
-    for bundle in Bundle.allFrameworks {
+    for bundle in Bundle.allBundles {
         print(bundle.bundleURL)
 //        if bundle.bundleURL.lastPathComponent == "XCTest.framework" {
 //            found = true
