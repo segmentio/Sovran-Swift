@@ -11,10 +11,14 @@ import Foundation
 
 /// Inquire as to whether we are within a Unit Testing environment.
 var isUnitTesting: Bool = {
-    let matches = Thread.callStackSymbols.filter { line in
-        return line.contains("XCTest") || line.contains("xctest")
+    var found = false
+    for bundle in Bundle.allFrameworks {
+        if bundle.bundleURL.lastPathComponent == "XCTest.framework" {
+            found = true
+            break
+        }
     }
-    return matches.count > 0
+    return found
 }()
 
 /// Allows calls to throw to simply be given a String.
