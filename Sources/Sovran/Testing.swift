@@ -11,15 +11,10 @@ import Foundation
 
 /// Inquire as to whether we are within a Unit Testing environment.
 var isUnitTesting: Bool = {
-    #if os(Linux)
-    let found = Thread.main.threadDictionary.allKeys.contains { key in
-        return (key as? String)?.split(separator: ".").contains("xctest") == true
+    let matches = Thread.callStackSymbols.filter { line in
+        return line.contains("XCTest") || line.contains("xctest")
     }
-    #else
-    let env = ProcessInfo.processInfo.environment
-    let found = (env["XCTestConfigurationFilePath"] != nil)
-    #endif
-    return found
+    return matches.count > 0
 }()
 
 /// Allows calls to throw to simply be given a String.
