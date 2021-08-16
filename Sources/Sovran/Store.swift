@@ -9,7 +9,7 @@ import Foundation
 
 public typealias SubscriptionID = Int
 
-public class Store: Codable {
+public class Store/*: Codable*/ {
     internal let updateQueue = DispatchQueue(label: "state.update.segment.com")
     internal let syncQueue = DispatchQueue(label: "state.sync.segment.com")
     internal var states = [Container]()
