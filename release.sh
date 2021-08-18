@@ -109,7 +109,7 @@ tempFile=$(mktemp)
 #write changelog to temp file.
 echo -e "$changelog" >> $tempFile
 
-# update sources/Segment/Version.swift
+# update sources/Sovran/Version.swift
 # - remove last line...
 sed -i '' -e '$ d' $versionFile
 # - add new line w/ new version
