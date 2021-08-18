@@ -9,7 +9,7 @@ import Foundation
 
 /// Inquire as to whether we are within a Unit Testing environment.
 #if DEBUG
-var isUnitTesting: Bool = {
+internal var isUnitTesting: Bool = {
     // this will work on apple platforms, but fail on linux.
     if NSClassFromString("XCTestCase") != nil {
         return true
