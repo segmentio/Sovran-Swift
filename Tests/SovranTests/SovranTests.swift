@@ -252,7 +252,7 @@ class StateInterfaceTests: XCTestCase, Subscriber {
 
         // register some handlers for state changes
         store.subscribe(self) { (state: MessagesState) in
-            print("hello")
+            // do nothing
         }
         
         let action = MessagesUnreadAction(value: 22)

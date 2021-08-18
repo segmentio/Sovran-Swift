@@ -9,7 +9,7 @@ import Foundation
 
 public typealias SubscriptionID = Int
 
-public class Store: Codable {
+public class Store/*: Codable*/ {
     internal let updateQueue = DispatchQueue(label: "state.update.segment.com")
     internal let syncQueue = DispatchQueue(label: "state.sync.segment.com")
     internal var states = [Container]()
@@ -89,7 +89,7 @@ public class Store: Codable {
         if exists.count != 0 {
             #if DEBUG
             // do a hard error if in debug mode (but not in a test suite).
-            if !isTesting() {
+            if !isUnitTesting {
                 assertionFailure("\(state) has already been provided elsewhere and can't be provided twice!")
             }
             #endif
@@ -189,7 +189,7 @@ public class Store: Codable {
 
 /// Describes the details of a given subscription.
 internal struct Subscription {
-    weak var owner: AnyObject? = nil
+    weak var owner: Subscriber? = nil
     let queue: DispatchQueue
     let handler: Any
     let subscriptionID = createNextSubscriptionID()
