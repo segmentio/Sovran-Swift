@@ -189,7 +189,7 @@ public class Store/*: Codable*/ {
 
 /// Describes the details of a given subscription.
 internal struct Subscription {
-    weak var owner: AnyObject? = nil
+    weak var owner: Subscriber? = nil
     let queue: DispatchQueue
     let handler: Any
     let subscriptionID = createNextSubscriptionID()
