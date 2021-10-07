@@ -9,8 +9,10 @@ import Foundation
 
 public typealias SubscriptionID = Int
 
-public class Store/*: Codable*/ {
+public class Store {
+    // handles synchronizing state changes thru the system
     internal let updateQueue = DispatchQueue(label: "state.update.segment.com")
+    // handles synchronizing subscription adds/removes
     internal let syncQueue = DispatchQueue(label: "state.sync.segment.com")
     internal var states = [Container]()
     internal var subscribers = [Subscription]()
@@ -97,7 +99,7 @@ public class Store/*: Codable*/ {
             return
         }
         let container = Container(state: state)
-        syncQueue.sync {
+        updateQueue.sync {
             states.append(container)
         }
         
