@@ -48,6 +48,12 @@ jobs:
       with:
         xcode-version: '13.0'
     - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
+        key: ${{ runner.os }}-spm-ios-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-ios-
     - run: xcodebuild -scheme Sovran-Package test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11'
     
   build_and_test_tvos:
@@ -58,6 +64,12 @@ jobs:
       with:
         xcode-version: '13.0'
     - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
+        key: ${{ runner.os }}-spm-tvos-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-tvos-
     - run: xcodebuild -scheme Sovran-Package test -sdk appletvsimulator -destination 'platform=tvOS Simulator,name=Apple TV'
   
   build_and_test_watchos:
@@ -68,4 +80,10 @@ jobs:
       with:
         xcode-version: '13.0'
     - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
+        key: ${{ runner.os }}-spm-watchos-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-watchos-
     - run: xcodebuild -scheme Sovran-Package test -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 40mm'
