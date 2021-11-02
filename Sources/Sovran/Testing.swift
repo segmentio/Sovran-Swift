@@ -29,12 +29,6 @@ internal var isUnitTesting: Bool = {
     // couldn't see anything that indicated we were testing.
     return false
 }()
-#endif
-
-
-#if DEBUG
-/// Allows calls to throw to simply be given a String.
-extension String: Error { }
 
 extension Store {
     /// Resets the state system.  Useful for testing.
