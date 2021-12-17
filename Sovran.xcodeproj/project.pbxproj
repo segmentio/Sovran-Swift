@@ -64,7 +64,7 @@
 		OBJ_12 /* SovranTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SovranTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		"Sovran::Sovran::Product" /* Sovran.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sovran.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Sovran::Sovran::Product" /* Sovran.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sovran.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Sovran::SovranTests::Product" /* SovranTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = SovranTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -279,6 +279,7 @@
 		OBJ_19 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -307,6 +308,7 @@
 		OBJ_20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
