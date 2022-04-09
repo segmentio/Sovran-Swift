@@ -91,3 +91,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 /.swiftpm
+
+# XCFrameworks
+Sovran_XCFramework*
