@@ -31,9 +31,9 @@ jobs:
     needs: cancel_previous
     runs-on: ubuntu-latest
     steps:
-    - uses: fwal/setup-swift@v1
+    - uses: fwal/setup-swift@v1.21.0
       with:
-        swift-version: "5.4"
+        swift-version: "5.7.2"
     - uses: actions/checkout@v2
     - name: Build
       run: swift build
