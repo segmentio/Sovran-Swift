@@ -1,5 +1,10 @@
 #!/bin/bash
 
+PROJECT_NAME="Sovran-Swift"
+PRODUCT_NAME="Sovran"
+
+LOWER_PRODUCT_NAME="$(echo ${PRODUCT_NAME} | tr '[:upper:]' '[:lower:]')"
+
 vercomp () {
 	if [[ $1 == $2 ]]
 	then
@@ -49,14 +54,14 @@ fi
 
 # check that we're on the `main` branch
 branch=$(git rev-parse --abbrev-ref HEAD)
-if [ $branch != 'main' ] 
+if [ $branch != 'main' ]
 then
 	echo "The 'main' must be the current branch to make a release."
 	echo "You are currently on: $branch"
 	exit 1
 fi
 
-versionFile="./sources/Sovran/Version.swift"
+versionFile="./sources/${PRODUCT_NAME}/Version.swift"
 
 # get last line in version.swift
 versionLine=$(tail -n 1 $versionFile)
@@ -65,10 +70,10 @@ version=$(cut -d "=" -f2- <<< "$versionLine")
 # remove quotes and spaces
 version=$(sed "s/[' \"]//g" <<< "$version")
 
-echo "Sovran-Swift current version: $version"
+echo "${PROJECT_NAME} current version: $version"
 
 # no args, so give usage.
-if [ $# -eq 0 ] 
+if [ $# -eq 0 ]
 then
 	echo "Release automation script"
 	echo ""
@@ -87,7 +92,7 @@ case $? in
 	2) op='<';;
 esac
 
-if [ $op != '>' ] 
+if [ $op != '>' ]
 then
 	echo "New version must be greater than previous version ($version)."
 	exit 1
@@ -95,7 +100,7 @@ fi
 
 read -r -p "Are you sure you want to release $newVersion? [y/N] " response
 case "$response" in
-	[yY][eE][sS]|[yY]) 
+	[yY][eE][sS]|[yY])
 		;;
 	*)
 		exit 1
@@ -109,11 +114,11 @@ tempFile=$(mktemp)
 #write changelog to temp file.
 echo -e "$changelog" >> $tempFile
 
-# update sources/Sovran/Version.swift
+# update sources/Segment/Version.swift
 # - remove last line...
 sed -i '' -e '$ d' $versionFile
 # - add new line w/ new version
-echo "internal let __sovran_version = \"$newVersion\"" >> $versionFile
+echo "internal let __${LOWER_PRODUCT_NAME}_version = \"$newVersion\"" >> $versionFile
 
 # commit the version change.
 git commit -am "Version $newVersion" && git push
@@ -123,4 +128,8 @@ gh release create $newVersion -F $tempFile -t "Version $newVersion"
 # remove the tempfile.
 rm $tempFile
 
+# build up the xcframework to upload to github
+./build.sh
 
+# upload the release
+gh release upload $newVersion ${PRODUCT_NAME}.xcframework.zip
