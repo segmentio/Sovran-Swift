@@ -86,4 +86,4 @@ jobs:
         key: ${{ runner.os }}-spm-watchos-${{ hashFiles('**/Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-spm-watchos-
-    - run: xcodebuild -scheme Sovran-Package test -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 40mm'
+    - run: xcodebuild -scheme Sovran-Package test -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 8 (45mm)'
