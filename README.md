@@ -1,4 +1,3 @@
-// add badges and stuff here
 
 # Sovran-Swift
 Small, Efficient, Easy.  State Management for Swift.
