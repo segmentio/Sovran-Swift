@@ -120,18 +120,22 @@ public class Store {
         guard let target = existing(stateType: T.StateType.self).first else {
             return
         }
-        // type the current state to match.
-        guard var state = target.state as? T.StateType else {
-            return
-        }
-        
-        updateQueue.sync {
+
+        let state = updateQueue.sync { () -> T.StateType? in
+            // type the current state to match.
+            guard var state = target.state as? T.StateType else {
+                return nil
+            }
+
             // perform data reduction.
             state = action.reduce(state: state)
             // state is final now, apply it back to storage.
             target.state = state as State
+            return state
         }
-        
+
+        guard let state else { return }
+
         // get any handlers that work against T.StateType
         let subs = existing(handlerType: T.StateType.self)
         notify(subscribers: subs, state: state)
@@ -148,8 +152,9 @@ public class Store {
         guard let target = existing(stateType: T.StateType.self).first else {
             return
         }
+
         // get a copy of the current state, typed as necessary.
-        guard var state = target.state as? T.StateType else {
+        guard var state = self.updateQueue.sync(execute: { target.state as? T.StateType }) else {
             return
         }
         
@@ -182,7 +187,9 @@ public class Store {
         guard let container = existing(stateType: T.self).first else {
             return nil
         }
-        return container.state as? T
+        return self.updateQueue.sync {
+            return container.state as? T
+        }
     }
 }
 
@@ -206,6 +213,7 @@ internal struct Subscription {
 
 /// Containment for held state.  The state var is updated as state changes occur.
 internal class Container {
+    // Note: this should only be accessed from the `Store.updateQueue`.
     var state: State
     init(state: State) { self.state = state }
 }

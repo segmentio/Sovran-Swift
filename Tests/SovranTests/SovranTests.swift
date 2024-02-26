@@ -278,4 +278,30 @@ class StateInterfaceTests: XCTestCase, Subscriber {
         let messageState: MessagesState? = store.currentState()
         XCTAssertTrue(messageState?.unreadCount == 1)
     }
+
+    func testConcurrentDispatch() {
+        let outerIterationCount = 10
+        let innerIterationCount = 100_000
+
+        for outerIteration in 1..<outerIterationCount {
+            store.provide(state: MessagesState())
+
+            var updates = [UInt]()
+            store.subscribe(self, initialState: false) { (state: MessagesState) in
+                updates.append(state.unreadCount)
+            }
+
+            DispatchQueue.concurrentPerform(iterations: innerIterationCount) { index in
+                let action = MessagesUnreadAction(value: UInt((outerIteration * innerIterationCount) + index))
+                store.dispatch(action: action)
+            }
+
+            RunLoop.main.run(until: Date())
+
+            XCTAssertEqual(updates.count, innerIterationCount)
+            let sortedUpdates = updates.sorted()
+            let monotonicallyIncreasing = zip(sortedUpdates, sortedUpdates.dropFirst()).allSatisfy(<)
+            XCTAssertTrue(monotonicallyIncreasing)
+        }
+    }
 }
