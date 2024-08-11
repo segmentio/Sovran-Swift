@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/github/segmentio/Sovran-Swift/graph/badge.svg?token=2BMB3HASDE)](https://codecov.io/github/segmentio/Sovran-Swift)
 
 # Sovran-Swift
 Small, Efficient, Easy.  State Management for Swift.
