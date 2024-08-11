@@ -1,7 +1,11 @@
 ignore:
   - "Sources/Sovran/Testing.swift"  # only included to facilitate testing
-
-comment:
-		# add "condensed_" to "header", "files" and "footer"
-    layout: "condensed_header, condensed_files, condensed_footer"
-    hide_project_coverage: TRUE # set to true
+  - "Sources/Tests/*" # ignore all tests
+ 
+comment:                  # this is a top-level key
+  layout: " diff, flags, files"
+  behavior: default
+  require_changes: false  # learn more in the Requiring Changes section below
+  require_base: false        # [true :: must have a base report to post]
+  require_head: true       # [true :: must have a head report to post]
+  hide_project_coverage: false # [true :: only show coverage on the git diff]
