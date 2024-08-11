@@ -1,0 +1,2 @@
+ignore:
+  - "Sources/Sovran/Testing.swift"  # only included to facilitate testing
