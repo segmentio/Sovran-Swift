@@ -1,9 +1,10 @@
 ignore:
   - "Sources/Sovran/Testing.swift"  # only included to facilitate testing
-  - "Sources/Tests/*" # ignore all tests
+  - "Sources/Tests/SovranTests/*.swift" # ignore all tests
+  - "Sources/Tests/LinuxMain.swift" # ignore
  
 comment:                  # this is a top-level key
-  layout: " diff, flags, files"
+  layout: "diff, flags, files"
   behavior: default
   require_changes: false  # learn more in the Requiring Changes section below
   require_base: false        # [true :: must have a base report to post]
