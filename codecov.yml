@@ -1,2 +1,7 @@
 ignore:
   - "Sources/Sovran/Testing.swift"  # only included to facilitate testing
+
+comment:
+		# add "condensed_" to "header", "files" and "footer"
+    layout: "condensed_header, condensed_files, condensed_footer"
+    hide_project_coverage: TRUE # set to true
