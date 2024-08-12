@@ -22,9 +22,7 @@ jobs:
       with:
         xcode-version: latest-stable
     - uses: actions/checkout@v2
-    - name: Build
-      run: swift build
-    - name: Run tests
+    - name: Build & Run tests
       run: swift test --enable-code-coverage
     - name: Convert coverage report
       run: xcrun llvm-cov export -format="lcov" .build/debug/SovranPackageTests.xctest/Contents/MacOS/SovranPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage.lcov
@@ -42,9 +40,7 @@ jobs:
       with:
         xcode-version: latest-stable
     - uses: actions/checkout@v2
-    - name: Build
-      run: swift build
-    - name: Run tests
+    - name: Build & Run tests
       run: swift test
       
   build_and_test_spm_linux:
